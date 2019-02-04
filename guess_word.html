@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Guess the word</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!-- Google fonts: -->
+	<link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
+</head>
+
+<body>
+
+ <div class="content">
+ 	<div class="banner">
+		<h1>Hangman</h1>
+	</div>
+
+	<div class="the_body">
+		<div class="statistics">
+			<div class="guesses">
+			</div>
+			<div class="lives">
+			</div>
+			<div class="wins">
+			</div>
+			<div class="losses">
+			</div>
+		</div>
+
+		<div class="game">
+			<h1>Please guess a letter :</h1>
+			<div class="letter_blanks">
+			</div>
+			<div id="form">
+				<input placeholder="Type Guess Here" id="guessBox" >
+				<button type="submit" onclick="hangman()">Submit Guess</button>
+			</div>
+		</div>
+
+		<div class="guesses_remaining">
+		</div>
+
+		<div class="letters_tried">
+			Letters tried:
+			<div class="the_letters">
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+	<script>
+		guesses = 10;
+		wins = 0;
+		losses = 0;
+		lives = 3;
+		letters_tried = [];
+
+		var words = ["test", "longtest", "testing", "toast"];
+		var wordPicked;
+
+	function win(){
+		$(".letter_blanks").empty();
+		$(".the_letters").empty();
+		guesses = 10;
+		letters_tried = [];
+		wins++;
+
+		var wordPicked = words[Math.floor(Math.random() * words.length)];
+			for (i = 0; i < wordPicked.length; i++){
+				this_letter = wordPicked[i];
+				var this_hidden_letter = $("<div>");
+				this_hidden_letter.text("-");
+				this_hidden_letter.attr('data-letter-value', this_letter);
+				this_hidden_letter.addClass("my_letters");
+				$(".letter_blanks").append(this_hidden_letter);
+			}
+	}
+
+		function loss(){
+		$(".letter_blanks").empty();
+		$(".the_letters").empty();
+		guesses = 10;
+		letters_tried = [];
+		losses++;
+		lives--;
+
+		var wordPicked = words[Math.floor(Math.random() * words.length)];
+			for (i = 0; i < wordPicked.length; i++){
+				this_letter = wordPicked[i];
+				var this_hidden_letter = $("<div>");
+				this_hidden_letter.text("-");
+				this_hidden_letter.attr('data-letter-value', this_letter);
+				this_hidden_letter.addClass("my_letters");
+				$(".letter_blanks").append(this_hidden_letter);
+			}
+	}
+
+	function game_over(){
+
+	}
+
+	function statistics(){
+		$(".lives").text("Lives: " + lives);
+		$(".wins").text("Wins: " + wins);
+		$(".losses").text("Losses: " + losses);
+		$(".guesses_remaining").text("Guesses remaining: " + guesses);
+		these_letters = letters_tried.toString();
+		$(".the_letters").text(these_letters);
+	}
+
+
+	//This randomizes the selected word the player is guessing.
+	var wordPicked = words[Math.floor(Math.random() * words.length)];
+	console.log(wordPicked);
+
+	for (i = 0; i < wordPicked.length; i++){
+		this_letter = wordPicked[i];
+		var this_hidden_letter = $("<div>");
+		this_hidden_letter.text("-");
+		this_hidden_letter.attr('data-letter-value', this_letter);
+		this_hidden_letter.addClass("my_letters");
+		$(".letter_blanks").append(this_hidden_letter);
+	}
+	
+		function hangman() {
+			//This is the letter that the user guessed
+			var	guess = document.getElementById("guessBox").value;
+			console.log("guess: " + guess);
+			letters_tried.push(guess);
+
+			all_letters = $(".my_letters");
+
+			//This will check every blank letter to see if the guess matches any of them
+			for (i = 0; i < wordPicked.length; i++){
+				if (guess === wordPicked[i]){
+					this_hidden_letter = $('div[data-letter-value=' + guess + ']');
+					this_hidden_letter.text(guess);
+				}
+			}
+
+			text_content = [];
+
+			//Checks if all letters have been guessed
+			for (i = 0; i < all_letters.length; i++){
+				text_content.push(all_letters[i].textContent);	
+			}
+
+			console.log("all blanks content: " + text_content);
+
+			//Empties the text field
+			document.getElementById("guessBox").value = "";
+
+			//Subtracts one from guesses
+			guesses--;
+
+			//If you won
+			if (! text_content.includes("-")){
+					console.log("win");
+					win();
+				}
+
+			//If you lost
+			if (guesses === 0){
+				loss();
+			}
+
+			//If you run out of lives
+			if (lives === 0){
+				game_over();
+			}
+
+			statistics();
+}
+	statistics();
+
+	</script>
+</body>
+
+</html>

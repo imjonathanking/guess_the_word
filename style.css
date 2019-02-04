@@ -1,0 +1,58 @@
+body{
+	text-align: center;
+	margin: 0;
+	font-family: 'Orbitron', sans-serif;
+	min-height: 100%;
+}
+
+.content{
+	display: grid;
+	grid-template-rows: [header] 200px [body] auto;
+	color: white;
+	height: 100vh;
+}
+
+.letter_blanks{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	font-size: 40px;
+}
+
+.banner{
+	grid-row-start: header;
+	background-image: url("retro_skyline.jpg");
+	background-size: 100% 100%;
+}
+
+.the_body{
+	display: grid;
+	grid-row-start: body;
+	background-image: url("retro_wallpaper.jpg");
+	background-size: 100% 100%;
+	grid-template-columns: [stats] 20% [center] auto [guesses] 20%;
+	grid-template-rows: [full] auto [footer] 80px;
+}
+
+.statistics{
+	grid-column-start: stats;
+	font-size: 40px;
+}
+
+.game{
+	grid-column-start: center;
+}
+
+.guesses_remaining{
+	grid-column-start: guesses;
+	font-size: 40px;
+}
+
+.letters_tried{
+	grid-row-start: letters;
+	grid-column-start: stats;
+	grid-column-end: span 3;
+	font-size: 40px;
+	background-color: rgba(22, 55, 160, 0.58);
+	border-top: 10px solid rgba(33, 143, 155, 0.79);
+}
