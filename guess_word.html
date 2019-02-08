@@ -58,12 +58,8 @@
 		lives = 3;
 		letters_tried = [];
 
-		var words = ["test", "longtest", "testing", "toast"];
+		var words = ["Jonathan", "Tyler", "Mae", "Edwin"];
 		var wordPicked;
-
-		function set_new_word(){
-			
-		}
 
 	function win(){
 		$(".letter_blanks").empty();
@@ -72,7 +68,7 @@
 		letters_tried = [];
 		wins++;
 
-			wordPicked = words[Math.floor(Math.random() * words.length)];
+		var wordPicked = words[Math.floor(Math.random() * words.length)];
 			for (i = 0; i < wordPicked.length; i++){
 				this_letter = wordPicked[i];
 				var this_hidden_letter = $("<div>");
@@ -91,7 +87,7 @@
 		losses++;
 		lives--;
 
-			wordPicked = words[Math.floor(Math.random() * words.length)];
+		var wordPicked = words[Math.floor(Math.random() * words.length)];
 			for (i = 0; i < wordPicked.length; i++){
 				this_letter = wordPicked[i];
 				var this_hidden_letter = $("<div>");
@@ -139,7 +135,6 @@
 
 			//This will check every blank letter to see if the guess matches any of them
 			for (i = 0; i < wordPicked.length; i++){
-				console.log((guess === wordPicked[i]));
 				if (guess === wordPicked[i]){
 					this_hidden_letter = $('div[data-letter-value=' + guess + ']');
 					this_hidden_letter.text(guess);
