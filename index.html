@@ -62,16 +62,6 @@
 		var wordPicked;
 
 		function set_new_word(){
-			
-		}
-
-	function win(){
-		$(".letter_blanks").empty();
-		$(".the_letters").empty();
-		guesses = 10;
-		letters_tried = [];
-		wins++;
-
 			wordPicked = words[Math.floor(Math.random() * words.length)];
 			for (i = 0; i < wordPicked.length; i++){
 				this_letter = wordPicked[i];
@@ -81,6 +71,15 @@
 				this_hidden_letter.addClass("my_letters");
 				$(".letter_blanks").append(this_hidden_letter);
 			}
+		}
+
+	function win(){
+		$(".letter_blanks").empty();
+		$(".the_letters").empty();
+		guesses = 10;
+		letters_tried = [];
+		wins++;
+		set_new_word();
 	}
 
 		function loss(){
@@ -90,16 +89,7 @@
 		letters_tried = [];
 		losses++;
 		lives--;
-
-			wordPicked = words[Math.floor(Math.random() * words.length)];
-			for (i = 0; i < wordPicked.length; i++){
-				this_letter = wordPicked[i];
-				var this_hidden_letter = $("<div>");
-				this_hidden_letter.text("-");
-				this_hidden_letter.attr('data-letter-value', this_letter);
-				this_hidden_letter.addClass("my_letters");
-				$(".letter_blanks").append(this_hidden_letter);
-			}
+		set_new_word();
 	}
 
 	function game_over(){
